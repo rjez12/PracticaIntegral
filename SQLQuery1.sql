@@ -174,3 +174,42 @@ ALTER TABLE Medicos ADD columna_dummy VARCHAR(10);
 ALTER TABLE Medicos ADD CONSTRAINT CK_Medico_Dummy CHECK (experiencia >= 0);
 ALTER TABLE Medicos ADD CONSTRAINT UQ_Medico_Dummy UNIQUE (columna_dummy);
 
+--Módulo 4: Eliminación de Objetos
+
+-- 41. Eliminar una tabla temporal.
+CREATE TABLE #TempPacientes (id INT);
+DROP TABLE #TempPacientes;
+
+-- 42. Eliminar una restricción CHECK.
+ALTER TABLE Medicos DROP CONSTRAINT CK_Medico_Dummy;
+
+-- 43. Eliminar una restricción UNIQUE.
+ALTER TABLE Medicos DROP CONSTRAINT UQ_Medico_Dummy;
+
+-- 44. Eliminar una columna.
+ALTER TABLE Medicos DROP COLUMN columna_dummy;
+
+-- 45. Eliminar una tabla de pruebas.
+CREATE TABLE TablaPruebas (id INT);
+DROP TABLE TablaPruebas;
+
+-- 46. Crear y eliminar una tabla Auditoria.
+CREATE TABLE Auditoria (id INT);
+DROP TABLE Auditoria;
+
+-- 47. Crear y eliminar una tabla Logs.
+CREATE TABLE Logs (id INT);
+DROP TABLE Logs;
+
+-- 48. Eliminar una FOREIGN KEY (Se elimina la relación de habitaciones para flexibilizar el diseño según requerimiento).
+ALTER TABLE Habitaciones DROP CONSTRAINT FK_Habitaciones_Pacientes;
+
+-- 49. Eliminar una tabla MedicamentosPrueba.
+CREATE TABLE MedicamentosPrueba (id INT);
+DROP TABLE MedicamentosPrueba;
+
+-- 50. Eliminar una base de datos de pruebas.
+CREATE DATABASE PruebaDB;
+GO
+DROP DATABASE PruebaDB;
+GO
