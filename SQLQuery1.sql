@@ -1,3 +1,5 @@
+--Módulo 1: Creación de la base de datos, esquemas y tablas para un sistema de gestión hospitalaria
+
 if not exists (select * from sys.databases where name =  'HospitalDB')
 begin
 	create database HospitalDB;
@@ -93,3 +95,41 @@ CREATE TABLE Operaciones.Tratamientos (
         REFERENCES Clinico.Medicos(MedicoID) ON DELETE NO ACTION
 );
 GO
+
+--Módulo 2: Modificación de tablas para agregar restricciones y relaciones adicionales
+
+ALTER TABLE Pacientes ADD CONSTRAINT PK_Pacientes PRIMARY KEY (id_paciente);
+
+ALTER TABLE Medicos ADD CONSTRAINT PK_Medicos PRIMARY KEY (id_medico);
+
+ALTER TABLE Pacientes MODIFY nombre VARCHAR(50) NOT NULL;
+
+ALTER TABLE Medicos MODIFY nombre VARCHAR(50) NOT NULL;
+
+ALTER TABLE Pacientes ADD CONSTRAINT UQ_Paciente_Correo UNIQUE (correo);
+
+ALTER TABLE Medicos ADD CONSTRAINT UQ_Medico_Correo UNIQUE (correo);
+
+ALTER TABLE Pacientes ADD CONSTRAINT CK_Paciente_Edad CHECK (edad >= 0);
+
+ALTER TABLE Medicos ADD CONSTRAINT CK_Medico_Salario CHECK (salario > 0);
+
+ALTER TABLE Pacientes MODIFY fecha_registro DATE DEFAULT (CURRENT_DATE);
+
+ALTER TABLE Medicos ADD CONSTRAINT FK_Medicos_Especialidades 
+FOREIGN KEY (id_especialidad) REFERENCES Especialidades(id_especialidad);
+
+ALTER TABLE Citas ADD CONSTRAINT FK_Citas_Pacientes 
+FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente);
+
+ALTER TABLE Citas ADD CONSTRAINT FK_Citas_Medicos 
+FOREIGN KEY (id_medico) REFERENCES Medicos(id_medico);
+
+ALTER TABLE Tratamientos ADD CONSTRAINT FK_Tratamientos_Pacientes 
+FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente);
+
+ALTER TABLE Medicamentos ADD CONSTRAINT FK_Medicamentos_Tratamientos 
+FOREIGN KEY (id_tratamiento) REFERENCES Tratamientos(id_treatment);
+
+ALTER TABLE Habitaciones ADD CONSTRAINT FK_Habitaciones_Pacientes 
+FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente);
