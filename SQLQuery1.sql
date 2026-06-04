@@ -387,3 +387,35 @@ UPDATE Medicos SET experiencia = 12 WHERE id_medico = 1;
 -- 80. Actualizar tipo de sangre.
 UPDATE Pacientes SET tipo_sangre = 'AB-' WHERE id_paciente = 2;
 
+--Módulo 7: Delete
+-- 81. Eliminar un paciente específico (ID 21 aislado sin referencias).
+DELETE FROM Pacientes WHERE id_paciente = 21;
+
+-- 82. Eliminar una cita (ID 14, que está libre).
+DELETE FROM Citas WHERE id_cita = 14;
+
+-- 83. Eliminar un medicamento.
+DELETE FROM Medicamentos WHERE id_medicamento = 20;
+
+-- 84. Eliminar una habitación.
+DELETE FROM Habitaciones WHERE id_habitacion = 12;
+
+-- 85. Eliminar un tratamiento.
+DELETE FROM Tratamientos WHERE id_treatment = 12;
+
+-- 86. Eliminar citas canceladas.
+DELETE FROM Citas WHERE estado = 'Cancelada';
+
+-- 87. Eliminar pacientes sin citas (Filtro seguro para limpiar registros huérfanos).
+DELETE FROM Pacientes WHERE id_paciente NOT IN (SELECT DISTINCT id_paciente FROM Citas WHERE id_paciente IS NOT NULL);
+
+-- 88. Eliminar habitaciones vacías (Garantizado porque eliminamos la FK restrictiva en el paso 48).
+DELETE FROM Habitaciones WHERE disponibilidad = 'Disponible' OR id_paciente IS NULL;
+
+-- 89. Eliminar medicamentos vencidos (Validando de forma estricta contra la fecha actual del sistema 2026).
+DELETE FROM Medicamentos WHERE fecha_vencimiento < CAST(GETDATE() AS DATE);
+
+-- 90. Eliminar registros de prueba.
+DELETE FROM Pacientes WHERE nombre LIKE '%Prueba%' OR correo LIKE '%prueba%';
+
+
