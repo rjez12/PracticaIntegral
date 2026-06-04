@@ -339,5 +339,51 @@ VALUES (11, 'Fisioterapia Lumbar', 11, 'Activo');
 
 -- 65. Insertar tratamientos finalizados.
 INSERT INTO Tratamientos (id_treatment, descripcion, id_paciente, estado) 
-VALUES (12, 'Tratamiento de Gripe', 12, 'Finalizado'); -ñ
+VALUES (12, 'Tratamiento de Gripe', 12, 'Finalizado'); 
+
+--Módulo 6: Update
+-- 66. Actualizar teléfono de un paciente.
+UPDATE Pacientes SET telefono = '555-9999' WHERE id_paciente = 1;
+
+-- 67. Actualizar dirección de un paciente.
+UPDATE Pacientes SET direccion = 'Nueva Av. Principal 742' WHERE id_paciente = 2;
+
+-- 68. Actualizar salario de un médico.
+UPDATE Medicos SET salario = 5500.00 WHERE id_medico = 1;
+
+-- 69. Actualizar turno de un médico.
+UPDATE Medicos SET turno = 'Noche' WHERE id_medico = 2;
+
+-- 70. Cambiar estado de una cita.
+UPDATE Citas SET estado = 'Completada' WHERE id_cita = 3;
+
+-- 71. Actualizar costo de consulta.
+UPDATE Citas SET costo_consulta = 160 WHERE id_cita = 1;
+
+-- 72. Actualizar nombre de especialidad.
+UPDATE Especialidades SET nombre = 'Cardiología Avanzada' WHERE id_especialidad = 1;
+
+-- 73. Actualizar disponibilidad de habitación.
+UPDATE Habitaciones SET disponibilidad = 'Ocupada' WHERE id_habitacion = 3;
+
+-- 74. Actualizar tratamiento activo.
+UPDATE Tratamientos SET estado = 'Finalizado' WHERE id_treatment = 1;
+
+-- 75. Actualizar medicamento.
+UPDATE Medicamentos SET nombre = 'Paracetamol 500mg' WHERE id_medicamento = 1;
+
+-- 76. Actualizar correo de paciente.
+UPDATE Pacientes SET correo = 'juan_nuevo@mail.com' WHERE id_paciente = 1;
+
+-- 77. Actualizar correo de médico.
+UPDATE Medicos SET correo = 'carlos_mendoza@hospital.com' WHERE id_medico = 1;
+
+-- 78. Actualizar fecha de cita.
+UPDATE Citas SET fecha = '2026-06-20 14:00:00' WHERE id_cita = 4;
+
+-- 79. Actualizar experiencia del médico.
+UPDATE Medicos SET experiencia = 12 WHERE id_medico = 1;
+
+-- 80. Actualizar tipo de sangre.
+UPDATE Pacientes SET tipo_sangre = 'AB-' WHERE id_paciente = 2;
 
