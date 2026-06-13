@@ -247,3 +247,23 @@ go
 -- paso 48
 insert into templeado_proyecto (nempleadoid, nproyectoid) values (3, 3);
 go
+
+-- paso 49
+delete from templeado where cnif = '001-555555-1014o';
+go
+
+-- paso 50
+delete from templeado where bactivo = 0;
+go
+
+-- paso 51
+delete from tproyecto where nproyectoid = 3;
+go
+
+-- paso 52
+delete from templeado_proyecto where nempleadoid = 5;
+go
+
+-- paso 53
+delete from tdepartamento where ndepartamentoid = 5;
+go
