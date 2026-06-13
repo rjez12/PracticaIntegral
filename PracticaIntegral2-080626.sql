@@ -267,3 +267,76 @@ go
 -- paso 53
 delete from tdepartamento where ndepartamentoid = 5;
 go
+
+-- paso 54
+select * from templeado order by capellido asc;
+go
+
+-- paso 55
+select * from templeado where nsalario > 1000;
+go
+
+-- paso 56
+select * from templeado where bactivo = 1;
+go
+
+-- paso 57
+select * from templeado where year(dfechacontratacion) = year(getdate());
+go
+
+-- paso 58
+select e.cnombre, e.capellido, d.cnombredepartamento 
+from templeado e join tdepartamento d on e.ndepartamentoid = d.ndepartamentoid;
+go
+
+-- paso 59
+select e.cnombre, e.capellido, c.cnombrecargo 
+from templeado e join tcargo c on e.ncargoid = c.ncargoid;
+go
+
+-- paso 60
+select e.cnombre, e.capellido, p.cnombreproyecto 
+from templeado e 
+join templeado_proyecto ep on e.nempleadoid = ep.nempleadoid 
+join tproyecto p on ep.nproyectoid = p.nproyectoid;
+go
+
+-- paso 61
+select ndepartamentoid, count(*) as cantidad_empleados from templeado group by ndepartamentoid;
+go
+
+-- paso 62
+select ndepartamentoid, avg(nsalario) as salario_promedio from templeado group by ndepartamentoid;
+go
+
+-- paso 63
+select ndepartamentoid, max(nsalario) as maximo, min(nsalario) as minimo from templeado group by ndepartamentoid;
+go
+
+-- paso 64
+select nproyectoid from templeado_proyecto group by nproyectoid having count(nempleadoid) > 2;
+go
+
+-- paso 65
+select * from templeado where capellido like 'g%';
+go
+
+-- paso 66
+select * from templeado order by nsalario desc;
+go
+
+-- paso 67
+select top 3 * from templeado order by nsalario desc;
+go
+
+-- paso 68
+select * from templeado where nedad between 25 and 40;
+go
+
+-- paso 69
+select count(*) as total_activos from templeado where bactivo = 1;
+go
+
+-- paso 70
+select count(*) as total_proyectos from tproyecto;
+go
