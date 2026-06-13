@@ -9,66 +9,66 @@ go
 use EmpresaSQL
 go
 
--- Paso 3
-CREATE TABLE TDepartamento (
-    nDepartamentoID INT IDENTITY(1,1) PRIMARY KEY, 
-    cNombreDepartamento VARCHAR(100) UNIQUE NOT NULL
+-- paso 3
+create table tdepartamento (
+    ndepartamentoid int identity(1,1) primary key, 
+    cnombredepartamento varchar(100) unique not null
 );
-GO
+go
 
--- Paso 4
-CREATE TABLE TCargo (
-    nCargoID INT IDENTITY(1,1) PRIMARY KEY, 
-    cNombreCargo VARCHAR(100) UNIQUE NOT NULL
+-- paso 4
+create table tcargo (
+    ncargoid int identity(1,1) primary key, 
+    cnombrecargo varchar(100) unique not null
 );
-GO
+go
 
--- Paso 5
-CREATE TABLE TEmpleado (
-    nEmpleadoID INT IDENTITY(1,1) PRIMARY KEY,
-    cCIF VARCHAR(20) UNIQUE,
-    cNombre VARCHAR(50),
-    cApellido VARCHAR(50),
-    nDepartamentoID INT,
-    nCargoID INT,
-    dFechaContratacion DATE,
-    nSalario DECIMAL(12,2)
+-- paso 5
+create table templeado (
+    nempleadoid int identity(1,1) primary key,
+    cnif varchar(20) unique,
+    cnombre varchar(50),
+    capellido varchar(50),
+    ndepartamentoid int,
+    ncargoid int,
+    dfechacontratacion date,
+    nsalario decimal(12,2)
 );
-GO
+go
 
--- Paso 6
-ALTER TABLE TEmpleado ADD CONSTRAINT CK_Salario CHECK (nSalario > 300);
-GO
+-- paso 6
+alter table templeado add constraint ck_salario check (nsalario > 300);
+go
 
--- Paso 7
-ALTER TABLE TEmpleado ADD CONSTRAINT DF_Fecha DEFAULT GETDATE() FOR dFechaContratacion;
-GO
+-- paso 7
+alter table templeado add constraint df_fecha default getdate() for dfechacontratacion;
+go
 
--- Paso 8
-ALTER TABLE TEmpleado ADD CONSTRAINT FK_Emp_Depto FOREIGN KEY (nDepartamentoID) REFERENCES TDepartamento(nDepartamentoID);
-GO
+-- paso 8
+alter table templeado add constraint fk_emp_depto foreign key (ndepartamentoid) references tdepartamento(ndepartamentoid);
+go
 
--- Paso 9
-ALTER TABLE TEmpleado ADD CONSTRAINT FK_Emp_Cargo FOREIGN KEY (nCargoID) REFERENCES TCargo(nCargoID);
-GO
+-- paso 9
+alter table templeado add constraint fk_emp_cargo foreign key (ncargoid) references tcargo(ncargoid);
+go
 
--- Paso 10 y 11: (SQL Server exige que el autoincremental IDENTITY se defina al crear el campo)
-CREATE TABLE TProyecto (
-    nProyectoID INT IDENTITY(1,1) PRIMARY KEY
+-- paso 10 y 11
+create table tproyecto (
+    nproyectoid int identity(1,1) primary key
 );
-GO
+go
 
--- Paso 12
-ALTER TABLE TProyecto ADD cNombreProyecto VARCHAR(150) NOT NULL;
-GO
+-- paso 12
+alter table tproyecto add cnombreproyecto varchar(150) not null;
+go
 
--- Paso 13
-ALTER TABLE TProyecto ADD dFechaInicio DATE NOT NULL;
-GO
+-- paso 13
+alter table tproyecto add dfechainicio date not null;
+go
 
--- Paso 14
-ALTER TABLE TProyecto ADD dFechaFinalizacion DATE;
-GO      
+-- paso 14
+alter table tproyecto add dfechafinalizacion date;
+go
 
 -- paso 15
 create table templeado_proyecto (
@@ -142,52 +142,108 @@ create table tsucursal (
     cnombresucursal varchar(100) not null
 );
 go
+
 -- paso 31
-insert into tdepartamento (cnombredepartamento) values ('sistemas'), ('rrhh'), ('soporte'), ('ventas'), ('vacio');
+insert into tdepartamento (cnombredepartamento) values 
+('ingenieria de sistemas'), 
+('recursos humanos'), 
+('soporte tecnico dti'), 
+('operaciones y ventas'), 
+('departamento inactivo');
 go
 
 -- paso 32
-insert into tcargo (cnombrecargo) values ('desarrollador'), ('dba'), ('qa'), ('gerente'), ('soporte técnico');
+insert into tcargo (cnombrecargo) values 
+('desarrollador de software'), 
+('administrador de base de datos'), 
+('analista de calidad qa'), 
+('gerente de proyectos it'), 
+('especialista de soporte');
 go
 
 -- paso 33
-insert into templeado (cCIF, cnombre, capellido, ndepartamentoid, ncargoid, nsalario, cemail, nedad, bactivo, cgenero) values 
-('25011185', 'Jesser', 'Rodriguez', 1, 1, 1000, 'jesserjrch@uamv.edu.ni', 18, 1, 'm'),
-('n02', 'b', 'b', 1, 2, 1100, 'b@uam.edu', 21, 1, 'f'),
-('n03', 'c', 'c', 2, 3, 1200, 'c@uam.edu', 22, 1, 'm'),
-('n04', 'd', 'd', 2,     4, 1300, 'd@uam.edu', 23, 1, 'f'),
-('n05', 'e', 'e', 3, 5, 1400, 'e@uam.edu', 24, 1, 'm'),
-('n06', 'f', 'f', 3, 1, 400,  'f@uam.edu', 25, 1, 'f'), 
-('n07', 'g', 'g', 4, 2, 1600, 'g@uam.edu', 26, 1, 'm'),
-('n08', 'h', 'h', 4, 3, 1700, 'h@uam.edu', 27, 1, 'f'),
-('n09', 'i', 'i', 1, 4, 1800, 'i@uam.edu', 28, 1, 'm'),
-('n10', 'j', 'j', 2, 5, 1900, 'j@uam.edu', 29, 1, 'f');
+insert into templeado (cnif, cnombre, capellido, ndepartamentoid, ncargoid, nsalario, cemail, nedad, bactivo, cgenero) values 
+('001-151100-1000a', 'jesser', 'rodriguez', 1, 1, 1500.00, 'jrodriguez@uam.edu', 25, 1, 'm'),
+('001-120501-1001b', 'maria', 'perez', 1, 2, 1600.00, 'mperez@uam.edu', 22, 1, 'f'),
+('001-220802-1002c', 'kellys', 'lopez', 2, 4, 1800.00, 'klopez@uam.edu', 23, 1, 'f'),
+('001-100301-1003d', 'samuel', 'gomez', 1, 1, 1400.00, 'sgomez@uam.edu', 24, 1, 'm'),
+('001-050403-1004e', 'anyeli', 'martinez', 3, 5, 900.00, 'amartinez@uam.edu', 21, 1, 'f'),
+('001-301000-1005f', 'jimmy', 'hernandez', 3, 5, 450.00, 'jhernandez@uam.edu', 26, 1, 'm'), -- salario bajo intencional para el paso 46
+('001-140299-1006g', 'carlos', 'sanchez', 4, 3, 1300.00, 'csanchez@uam.edu', 28, 1, 'm'),
+('001-180998-1007h', 'ana', 'ruiz', 4, 3, 1350.00, 'aruiz@uam.edu', 27, 1, 'f'),
+('001-251295-1008i', 'luis', 'diaz', 2, 4, 1750.00, 'ldiaz@uam.edu', 29, 1, 'm'),
+('001-080797-1009j', 'sofia', 'ramirez', 1, 2, 1550.00, 'sramirez@uam.edu', 25, 1, 'f');
 go
 
 -- paso 34
-insert into tproyecto (cnombreproyecto, dfechainicio) values ('p1', getdate()), ('p2', getdate()), ('p3', getdate());
+insert into tproyecto (cnombreproyecto, dfechainicio) values 
+('sistema techzone s.a. core', '2025-08-15'), 
+('plataforma jino gym', '2026-02-10'), 
+('tienda kjmr backend', '2026-04-01');
 go
 
 -- paso 35
-insert into templeado_proyecto (nempleadoid, nproyectoid) values (1, 1), (2, 2);
+insert into templeado_proyecto (nempleadoid, nproyectoid) values (1, 1), (2, 1), (3, 2), (4, 2), (5, 3);
 go
 
 -- paso 36
-insert into templeado (cCIF, cnombre, nsalario) values ('n11', 'def', 1000);
+insert into templeado (cnif, cnombre, capellido, nsalario) 
+values ('001-111111-1010k', 'roberto', 'castillo', 1150.00);
 go
 
 -- paso 37
-insert into templeado (cCIF, cnombre, nsalario, cemail) values ('n12', 'mail', 1000, 'mail@uam.edu');
+insert into templeado (cnif, cnombre, capellido, nsalario, cemail) 
+values ('001-222222-1011l', 'patricia', 'mendoza', 1250.00, 'pmendoza@uam.edu');
 go
 
 -- paso 38
-insert into templeado (cCIF, cnombre, nsalario) values ('n13', 'activo', 1000);
+insert into templeado (cnif, cnombre, capellido, nsalario) 
+values ('001-333333-1012m', 'fernando', 'vargas', 1050.00);
 go
 
 -- paso 39
-insert into templeado (cCIF, cnombre, nsalario) values ('n14', 'multi1', 1000), ('n15', 'multi2', 1000);
+insert into templeado (cnif, cnombre, capellido, nsalario) values 
+('001-444444-1013n', 'gabriela', 'silva', 1450.00), 
+('001-555555-1014o', 'hector', 'navarro', 1380.00);
 go
 
 -- paso 40
-begin try insert into templeado (cCIF, nsalario) values ('err', -100); end try begin catch end catch;
+begin try 
+    insert into templeado (cnif, cnombre, nsalario) values ('error-salario', 'invalido', -500.00); 
+end try 
+begin catch 
+    print 'paso 40 evaluado: no se permiten salarios negativos.';
+end catch;
+go
+
+-- paso 41
+update templeado set nsalario = nsalario * 1.10;
+go
+
+-- paso 42
+update templeado set nsalario = nsalario * 1.20 where ndepartamentoid = 1;
+go
+
+-- paso 43
+update templeado set cemail = 'jrodriguez.admin@uam.edu' where nempleadoid = 1;
+go
+
+-- paso 44
+update templeado set ncargoid = 4 where nempleadoid = 3;
+go
+
+-- paso 45
+update templeado set ndepartamentoid = 1 where nempleadoid in (4, 5);
+go
+
+-- paso 46
+update templeado set bactivo = 0 where nsalario < 500;
+go
+
+-- paso 47
+update tproyecto set dfechafinalizacion = '2026-12-15' where nproyectoid = 1;
+go
+
+-- paso 48
+insert into templeado_proyecto (nempleadoid, nproyectoid) values (3, 3);
 go
