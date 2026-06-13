@@ -355,7 +355,7 @@ alter table templeado add constraint uq_email unique (cemail);
 go
 
 -- paso 74
-drop table templeado_proyecto; 
+--drop table templeado_proyecto; 
 go
 
 -- paso 75
@@ -363,22 +363,121 @@ drop table tproyecto;
 go
 
 -- paso 76
-drop table templeado; 
+--drop table templeado; 
 go
 
 -- paso 77
-drop table tcargo; 
+--drop table tcargo; 
 go
 
 -- paso 78
-drop table tdepartamento; 
+--drop table tdepartamento; 
 go
 
 -- paso 79
-drop table tsucursal; 
+--drop table tsucursal; 
 go
 
 -- paso 80
-use master;
-drop database empresasql; 
+--use master;
+--drop database empresasql; 
+go
+
+-- paso 81
+create table tcliente (
+    nclienteid int identity(1,1) primary key,
+    cruc varchar(20) unique not null,
+    cnombre varchar(100) not null,
+    capellido varchar(100) not null,
+    ctelefono varchar(20),
+    cemail varchar(100) unique,
+    cdireccion varchar(200),
+    dfecharegistro date default getdate(),
+    bactivo bit default 1
+);
+go
+
+-- paso 82
+create table tventa (
+    nventaid int identity(1,1) primary key,
+    nclienteid int,
+    dfechaventa date default getdate(),
+    nmonto decimal(12,2) check (nmonto > 0),
+    constraint fk_venta_cliente foreign key (nclienteid) references tcliente(nclienteid) on delete cascade
+);
+go
+
+-- paso 83
+insert into tcliente (cruc, cnombre, capellido, ctelefono, cemail, cdireccion) values 
+('001-151100-0001a', 'jorge', 'martinez', '8888-1111', 'jorge.m@gmail.com', 'managua, nicaragua'),
+('001-151100-0002b', 'luisa', 'perez', '8888-2222', 'luisa.p@gmail.com', 'leon, nicaragua'),
+('001-151100-0003c', 'carlos', 'gomez', '8888-3333', 'carlos.g@gmail.com', 'masaya, nicaragua'),
+('001-151100-0004d', 'ana', 'lopez', '8888-4444', 'ana.l@gmail.com', 'esteli, nicaragua'),
+('001-151100-0005e', 'pedro', 'diaz', '8888-5555', 'pedro.d@gmail.com', 'managua, nicaragua'),
+('001-151100-0006f', 'maria', 'ruiz', '8888-6666', 'maria.r@gmail.com', 'granada, nicaragua'),
+('001-151100-0007g', 'luis', 'hernandez', '8888-7777', 'luis.h@gmail.com', 'leon, nicaragua'),
+('001-151100-0008h', 'carmen', 'garcia', '8888-8888', 'carmen.g@gmail.com', 'managua, nicaragua'),
+('001-151100-0009i', 'jose', 'sanchez', '8888-9999', 'jose.s@gmail.com', 'chinandega, nicaragua'),
+('001-151100-0010j', 'laura', 'ramirez', '8888-0000', 'laura.r@gmail.com', 'managua, nicaragua'),
+('001-151100-0011k', 'miguel', 'torres', '8889-1111', 'miguel.t@gmail.com', 'matagalpa, nicaragua'),
+('001-151100-0012l', 'rosa', 'flores', '8889-2222', 'rosa.f@gmail.com', 'leon, nicaragua'),
+('001-151100-0013m', 'francisco', 'rivera', '8889-3333', 'francisco.r@gmail.com', 'managua, nicaragua'),
+('001-151100-0014n', 'elena', 'gomez', '8889-4444', 'elena.g@gmail.com', 'masaya, nicaragua'),
+('001-151100-0015o', 'roberto', 'cruz', '8889-5555', 'roberto.c@gmail.com', 'managua, nicaragua'),
+('001-151100-0016p', 'claudia', 'reyes', '8889-6666', 'claudia.r@gmail.com', 'jinotepe, nicaragua'),
+('001-151100-0017q', 'ricardo', 'morales', '8889-7777', 'ricardo.m@gmail.com', 'managua, nicaragua'),
+('001-151100-0018r', 'silvia', 'ortiz', '8889-8888', 'silvia.o@gmail.com', 'leon, nicaragua'),
+('001-151100-0019s', 'mario', 'castillo', '8889-9999', 'mario.c@gmail.com', 'managua, nicaragua'),
+('001-151100-0020t', 'teresa', 'aguilar', '8889-0000', 'teresa.a@gmail.com', 'esteli, nicaragua');
+go
+
+-- paso 84
+insert into tventa (nclienteid, dfechaventa, nmonto) values 
+(1, '2026-01-10', 150.00), (2, '2026-01-12', 200.50), (3, '2026-01-15', 300.00), (4, '2026-01-18', 450.75), (5, '2026-01-20', 120.00),
+(6, '2026-01-22', 800.00), (7, '2026-01-25', 950.00), (8, '2026-01-28', 1100.00), (9, '2026-02-01', 1300.50), (10, '2026-02-05', 250.00),
+(11, '2026-02-08', 350.00), (12, '2026-02-10', 400.00), (13, '2026-02-12', 550.00), (14, '2026-02-15', 600.00), (15, '2026-02-18', 750.00),
+(16, '2026-02-20', 850.00), (17, '2026-02-22', 900.00), (1, '2026-02-25', 1050.00), (2, '2026-02-28', 1150.00), (3, '2026-03-02', 1250.00),
+(4, '2026-03-05', 1400.00), (5, '2026-03-08', 1500.00), (6, '2026-03-10', 1600.00), (7, '2026-03-12', 1750.00), (8, '2026-03-15', 1800.00),
+(9, '2026-03-18', 1900.00), (10, '2026-03-20', 2100.00), (11, '2026-03-22', 2200.00), (12, '2026-03-25', 2300.00), (13, '2026-03-28', 2400.00),
+(14, '2026-04-01', 2500.00), (15, '2026-04-05', 150.00), (16, '2026-04-08', 250.00), (17, '2026-04-10', 350.00), (1, '2026-04-12', 450.00),
+(2, '2026-04-15', 550.00), (3, '2026-04-18', 650.00), (4, '2026-04-20', 750.00), (5, '2026-04-22', 850.00), (6, '2026-04-25', 950.00),
+(7, '2026-04-28', 1050.00), (8, '2026-05-02', 1150.00), (9, '2026-05-05', 1250.00), (10, '2026-05-08', 1350.00), (11, '2026-05-10', 1450.00),
+(12, '2026-05-12', 1550.00), (13, '2026-05-15', 1650.00), (14, '2026-05-18', 1750.00), (15, '2026-05-20', 1850.00), (16, '2026-05-22', 1950.00);
+go
+
+-- paso 85
+update tventa set nmonto = nmonto * 0.90 where nmonto > 1500.00;
+go
+
+-- paso 86
+delete from tcliente where nclienteid not in (select distinct nclienteid from tventa);
+go
+
+-- paso 87
+select top 5 c.cnombre, c.capellido, sum(v.nmonto) as total_compras
+from tcliente c
+inner join tventa v on c.nclienteid = v.nclienteid
+group by c.cnombre, c.capellido
+order by total_compras desc;
+go
+
+-- paso 88
+select month(dfechaventa) as mes_venta, sum(nmonto) as total_mensual
+from tventa
+group by month(dfechaventa)
+order by mes_venta asc;
+go
+
+-- paso 89
+select c.cnombre, c.capellido, avg(v.nmonto) as promedio_por_cliente
+from tcliente c
+inner join tventa v on c.nclienteid = v.nclienteid
+group by c.cnombre, c.capellido;
+go
+
+-- paso 90
+select e.cnombre, e.capellido, d.cnombredepartamento, c.cnombrecargo
+from templeado e
+inner join tdepartamento d on e.ndepartamentoid = d.ndepartamentoid
+inner join tcargo c on e.ncargoid = c.ncargoid;
 go
