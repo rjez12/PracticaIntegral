@@ -340,3 +340,45 @@ go
 -- paso 70
 select count(*) as total_proyectos from tproyecto;
 go
+
+-- paso 71
+alter table templeado drop constraint ck_edad; 
+go
+
+-- paso 72
+alter table templeado drop constraint uq_email;
+go
+
+-- paso 73
+alter table templeado add constraint ck_edad check (nedad between 18 and 65);
+alter table templeado add constraint uq_email unique (cemail);
+go
+
+-- paso 74
+drop table templeado_proyecto; 
+go
+
+-- paso 75
+drop table tproyecto; 
+go
+
+-- paso 76
+drop table templeado; 
+go
+
+-- paso 77
+drop table tcargo; 
+go
+
+-- paso 78
+drop table tdepartamento; 
+go
+
+-- paso 79
+drop table tsucursal; 
+go
+
+-- paso 80
+use master;
+drop database empresasql; 
+go
