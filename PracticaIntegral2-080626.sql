@@ -26,7 +26,7 @@ GO
 -- Paso 5
 CREATE TABLE TEmpleado (
     nEmpleadoID INT IDENTITY(1,1) PRIMARY KEY,
-    cNIF VARCHAR(20) UNIQUE,
+    cCIF VARCHAR(20) UNIQUE,
     cNombre VARCHAR(50),
     cApellido VARCHAR(50),
     nDepartamentoID INT,
@@ -141,4 +141,53 @@ create table tsucursal (
     nsucursalid int identity(1,1) primary key, 
     cnombresucursal varchar(100) not null
 );
+go
+-- paso 31
+insert into tdepartamento (cnombredepartamento) values ('sistemas'), ('rrhh'), ('soporte'), ('ventas'), ('vacio');
+go
+
+-- paso 32
+insert into tcargo (cnombrecargo) values ('desarrollador'), ('dba'), ('qa'), ('gerente'), ('soporte técnico');
+go
+
+-- paso 33
+insert into templeado (cCIF, cnombre, capellido, ndepartamentoid, ncargoid, nsalario, cemail, nedad, bactivo, cgenero) values 
+('25011185', 'Jesser', 'Rodriguez', 1, 1, 1000, 'jesserjrch@uamv.edu.ni', 18, 1, 'm'),
+('n02', 'b', 'b', 1, 2, 1100, 'b@uam.edu', 21, 1, 'f'),
+('n03', 'c', 'c', 2, 3, 1200, 'c@uam.edu', 22, 1, 'm'),
+('n04', 'd', 'd', 2,     4, 1300, 'd@uam.edu', 23, 1, 'f'),
+('n05', 'e', 'e', 3, 5, 1400, 'e@uam.edu', 24, 1, 'm'),
+('n06', 'f', 'f', 3, 1, 400,  'f@uam.edu', 25, 1, 'f'), 
+('n07', 'g', 'g', 4, 2, 1600, 'g@uam.edu', 26, 1, 'm'),
+('n08', 'h', 'h', 4, 3, 1700, 'h@uam.edu', 27, 1, 'f'),
+('n09', 'i', 'i', 1, 4, 1800, 'i@uam.edu', 28, 1, 'm'),
+('n10', 'j', 'j', 2, 5, 1900, 'j@uam.edu', 29, 1, 'f');
+go
+
+-- paso 34
+insert into tproyecto (cnombreproyecto, dfechainicio) values ('p1', getdate()), ('p2', getdate()), ('p3', getdate());
+go
+
+-- paso 35
+insert into templeado_proyecto (nempleadoid, nproyectoid) values (1, 1), (2, 2);
+go
+
+-- paso 36
+insert into templeado (cCIF, cnombre, nsalario) values ('n11', 'def', 1000);
+go
+
+-- paso 37
+insert into templeado (cCIF, cnombre, nsalario, cemail) values ('n12', 'mail', 1000, 'mail@uam.edu');
+go
+
+-- paso 38
+insert into templeado (cCIF, cnombre, nsalario) values ('n13', 'activo', 1000);
+go
+
+-- paso 39
+insert into templeado (cCIF, cnombre, nsalario) values ('n14', 'multi1', 1000), ('n15', 'multi2', 1000);
+go
+
+-- paso 40
+begin try insert into templeado (cCIF, nsalario) values ('err', -100); end try begin catch end catch;
 go
